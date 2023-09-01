@@ -12,18 +12,18 @@ Clone or download this repo and use it for your rails admin application.
 
 ## Setup
 
-'Ruby -v 3.2.2'
-'Rails -v 7.0.7'
+`Ruby -v 3.2.2`
+`Rails -v 7.0.7`
 
 Install your bundle by run 'bundle install'
 
-Create database with 'rails db:create'
+Create database with `rails db:create`
 
-For node_modules run 'yarn install'
+For node_modules run `yarn install`
 
-For assets compile use 'rails assets:precompile'
+For assets compile use `rails assets:precompile`
 
-Now run this project by 'rails s'
+Now run this project by `rails s`
 
 ## 🔮 Future
 
