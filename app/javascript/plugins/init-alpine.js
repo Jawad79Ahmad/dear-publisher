@@ -1,7 +1,6 @@
 console.log('init-alpine.js is loaded');
 
 export function data() {
-  debugger
   function getThemeFromLocalStorage() {
     // if user already changed the theme, use it
     if (window.localStorage.getItem('dark')) {
