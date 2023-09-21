@@ -1,4 +1,4 @@
-class PagesController < ApplicationController
+class Portal::PagesController < Portal::BaseController
   def login; end
 
   def login; end

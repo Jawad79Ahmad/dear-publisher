@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  rolify
   attr_accessor :login
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -7,13 +6,20 @@ class User < ApplicationRecord
          :rememberable, :validatable, :confirmable, :lockable
 
   before_validation :set_username
-
   before_validation :check_username
   validates :username, uniqueness: { case_sensitive: false }, if: -> { username.present? }
   validates :email, presence: false, allow_nil: true, uniqueness: { case_sensitive: false }, if: -> { email.present? }
   validates :phone_number, presence: false, allow_nil: true
 
+  belongs_to :active_role, class_name: :Role, optional: true, foreign_key: :current_role
+  has_many :user_roles
+  has_many :roles, through: :user_roles
+  has_many :categories, class_name: :Category, foreign_key: :created_by_id
+
+  before_create :set_rid
   after_create :assign_default_role
+
+  ROLES = ['admin', 'writer', 'blogger', 'publisher'].freeze
 
   def assign_default_role
     self.add_role(:member) if self.roles.blank?
@@ -73,5 +79,23 @@ class User < ApplicationRecord
 
   def login
     @login || self.username || self.email || self.phone_number
+  end
+
+  def add_role(role_name)
+    user_roles.build(role: Role.find_or_create_by(name: role_name.downcase)).save
+  end
+
+  def has_role?(role_name)
+    UserRole.joins(:role).exists?('role.name': role_name.downcase, user_id: id)
+  end
+
+  def active_role_name
+    return if active_role.blank?
+
+    active_role.name.titleize
+  end
+
+  def member?
+    active_role_name.to_s.downcase.eql?('member')
   end
 end

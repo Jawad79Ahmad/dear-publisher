@@ -20,6 +20,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     resource.save
     yield resource if block_given?
     if resource.persisted?
+      resource.confirm
       if resource.active_for_authentication?
         set_flash_message! :notice, :signed_up
         sign_up(resource_name, resource)
@@ -110,7 +111,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # The path used after sign up. You need to overwrite this method
   # in your own RegistrationsController.
   def after_sign_up_path_for(resource)
-    after_sign_in_path_for(resource) if is_navigational_format?
+    after_sign_in_path(resource) if is_navigational_format?
   end
 
   # The path used after sign up for inactive accounts. You need to overwrite
