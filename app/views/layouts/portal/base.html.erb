@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DearPublisher.</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <script>
+      if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
+    </script>
+  </head>
+
+  <body class='bg-gray-50 dark:bg-gray-900 w-full'>
+    <%= render 'layouts/portal/components/sidebar' %>
+    <%= render 'layouts/portal/components/navbar' %>
+    <div class="p-4 sm:ml-60">
+      <main class="h-full overflow-y-auto mt-12">
+        <%= yield %>
+      </main>
+    </div>
+
+    <%= render 'layouts/flash_message' %>
+    <%= render 'layouts/toggle_theme_script' %>
+  </body>
+</html>
