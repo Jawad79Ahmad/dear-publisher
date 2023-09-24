@@ -9,3 +9,9 @@ application.register("hello", HelloController)
 
 import ThemeController from "./theme_controller"
 application.register("theme", ThemeController)
+
+import PaginationController from "./pagination_controller"
+application.register("pagination", PaginationController)
+
+import ToggleModalController from "./toggle_modal_controller"
+application.register("toggle_modal", ToggleModalController)

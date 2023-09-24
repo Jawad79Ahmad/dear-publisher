@@ -1,0 +1,38 @@
+<div class="w-full overflow-hidden rounded-lg shadow-xs border dark:border-gray-700 rounded-lg mt-4">
+  <div class="w-full overflow-x-auto">
+    <table class="w-full whitespace-no-wrap">
+      <thead>
+        <tr class="tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+          <% @headers.each do |header| %>
+            <th class="px-4 py-3"><%= header.titleize %></th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+        <% @table_data.each do |row| %>
+          <tr class="text-gray-700 dark:text-gray-400">
+            <% get_row_data(row, @columns).each do |column| %>
+              <td class="px-4 py-3">
+                <%= column %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="flex flex-wrap item-center justify-between px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+    <span class="py-2">
+      <% if params[:page].present? %>
+        Showing <%= "#{params[:page].to_i * 10 - 9} - #{(params[:page].to_i * 10) >= @query.result.count ? ((params[:page].to_i * 10) - ((params[:page].to_i * 10) - @query.result.count)) : (params[:page].to_i * 10)}" %> of <%= @query.result.count %>
+      <% else %>
+        Showing <%= "01 - 10" %> of <%= @query.result.count %>
+      <% end %>
+    </span>
+    <!-- Pagination -->
+    <span data-controller="pagination" class="flex mt-2">
+      <%= paginate @active_record_data %>
+    </span>
+  </div>
+</div>

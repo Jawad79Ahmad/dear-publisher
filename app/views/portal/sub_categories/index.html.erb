@@ -1,7 +1,7 @@
 <div class="grid mt-4">
-  <%= render partial: 'layouts/partials/breadcrums', locals: { component_name: 'Categories', component_location: portal_categories_path, page_name: 'Index' } %>
+  <%= render partial: 'layouts/partials/breadcrums', locals: { component_name: 'Sub Categories', component_location: portal_sub_categories_path, page_name: 'Index' } %>
 
-  <%= search_form_for(@q, url: portal_categories_path, html: { class: 'mt-4 flex gap-4 rounded-lg shadow-xs' }) do |f| %>
+  <%= search_form_for(@q, url: portal_sub_categories_path, html: { class: 'mt-4 flex gap-4 rounded-lg shadow-xs' }) do |f| %>
     <%= f.search_field :name_cont, class: 'block rounded-lg border-gray-400 dark:border-gray-600 dark:bg-gray-700 focus:border-cyan-400 focus:outline-none focus:shadow-outline-cyan dark:text-gray-300 dark:focus:shadow-outline-gray form-input', placeholder: 'Search by Name' %>
     <%= f.search_field :created_by_first_name_or_created_by_last_name_cont, class: 'block rounded-lg border-gray-400 dark:border-gray-600 dark:bg-gray-700 focus:border-cyan-400 focus:outline-none focus:shadow-outline-cyan dark:text-gray-300 dark:focus:shadow-outline-gray form-input', placeholder: 'Search by Created By' %>
   <% end %>
@@ -10,7 +10,7 @@
     <div class="w-full overflow-x-auto">
       <table class="w-full whitespace-no-wrap">
         <thead>
-          <tr class="md:text-sm text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+          <tr class="tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
             <th class="px-4 py-3"><%= sort_link(@q, :id, 'id') %></th>
             <th class="px-4 py-3"><%= sort_link(@q, :name, 'name') %></th>
             <th class="px-4 py-3">Created By</th>
@@ -20,21 +20,21 @@
           </tr>
         </thead>
         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 md:text-sm">
-          <% @categories.each do |category| %>
-            <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
-              <td class="px-4 py-3"><%= category.id %></td>
-              <td class="px-4 py-3"><%= category.name %></td>
-              <td class="px-4 py-3"><%= category.created_by&.name %></td>
-              <td class="px-4 py-3"><%= category.created_at.strftime('%A, %d %b %Y %I:%M %p') %></td>
-              <td class="px-4 py-3"><%= category.updated_at.strftime('%A, %d %b %Y %I:%M %p') %></td>
+          <% @sub_categories.each do |sub_category| %>
+            <tr class="text-gray-700 dark:text-gray-400">
+              <td class="px-4 py-3"><%= sub_category.id %></td>
+              <td class="px-4 py-3"><%= sub_category.name %></td>
+              <td class="px-4 py-3"><%= sub_category.created_by&.name %></td>
+              <td class="px-4 py-3"><%= sub_category.created_at.strftime('%A, %d %b %Y %I:%M %p') %></td>
+              <td class="px-4 py-3"><%= sub_category.updated_at.strftime('%A, %d %b %Y %I:%M %p') %></td>
               <td class="px-4 py-3 flex justify-center gap-4">
-                <%= link_to portal_category_path(rid: category.rid), class: '' do %>
+                <%= link_to portal_sub_category_path(rid: sub_category.rid), data: { turbo_stream: true }, class: '' do %>
                   <i class="fa-regular fa-eye"></i>
                 <% end %>
-                <%= link_to edit_portal_category_path(rid: category.rid), data: { turbo_stream: true }, class: '' do %>
+                <%= link_to edit_portal_sub_category_path(rid: sub_category.rid), class: '' do %>
                   <i class="fa-regular fa-pen-to-square"></i>
                 <% end %>
-                <%= link_to portal_category_path(rid: category.rid), method: :delete, class: '' do %>
+                <%= link_to portal_sub_category_path(rid: sub_category.rid), method: :delete, class: '' do %>
                   <i class="fa-regular fa-trash-can"></i>
                 <% end %>
               </td>
@@ -54,30 +54,11 @@
           Showing <%= "01 - #{@total_records < 20 ? @total_records < 10 ? ('0' + @total_records.to_s) : @total_records : '20'}" %> of <%= @total_records < 10 ? "0#{@total_records}" : @total_records %>
         <% end %>
       </span>
+      </span>
       <!-- Pagination -->
       <span data-controller="pagination" class="flex mt-2">
-        <%= paginate @categories %>
+        <%= paginate @sub_categories %>
       </span>
     </div>
   </div>
 </div>
-
-<!--
-<div class="grid mt-4">
-
-  <%#= render(
-    BreadcrumComponent.new(breadcrum_list: [
-     {title: 'Dashboard', title_location: portal_dashboard_path}, {title: 'Categories', title_location: portal_categories_path}, {title: 'Index'}
-    ])
-  ) %>
-
-  <%#= render(
-    TableComponent.new(
-      table_data: @category_list,
-      headers: Category.data_for_index[:headers],
-      columns: Category.data_for_index[:row_data],
-      active_record_data: @categories, query: @q
-    )
-  ) %>
-</div>
--->

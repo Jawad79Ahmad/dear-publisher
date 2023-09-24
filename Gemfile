@@ -78,4 +78,10 @@ gem 'devise', github: 'heartcombo/devise', branch: 'main'
 
 gem "font-awesome-sass", "~> 6.4.2"
 gem 'feathericon-rails'
-gem 'ransack'
+
+gem 'ransack', '~> 3.2.1'
+gem 'kaminari'
+
+gem "view_component", "~> 3.6"
+
+gem "faker", "~> 3.2"

@@ -1,0 +1,32 @@
+<div class="grid mt-4">
+  <%= render partial: 'layouts/partials/breadcrums', locals: { component_name: 'Categories', component_location: portal_categories_path, page_name: 'Show' } %>
+
+  <div class="w-full overflow-hidden rounded-lg shadow-xs border dark:border-gray-700 rounded-lg mt-4">
+    <div class="w-full overflow-x-auto">
+      <table class="w-full whitespace-no-wrap">
+        <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 md:text-sm">
+          <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+            <th class="px-4 py-3 text-left border-r dark:border-gray-700">ID</th>
+            <td class="px-4 py-3"><%= @category.id %></td>
+          </tr>
+          <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+            <th class="px-4 py-3 text-left border-r dark:border-gray-700">Name</th>
+            <td class="px-4 py-3"><%= @category.name %></td>
+          </tr>
+          <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+            <th class="px-4 py-3 text-left border-r dark:border-gray-700">Created By</th>
+            <td class="px-4 py-3"><%= @category.created_by&.name %></td>
+          </tr>
+          <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+            <th class="px-4 py-3 text-left border-r dark:border-gray-700">Created at</th>
+            <td class="px-4 py-3"><%= @category.created_at.strftime('%A, %d %b %Y %I:%M %p') %></td>
+          </tr>
+          <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+            <th class="px-4 py-3 text-left border-r dark:border-gray-700">Updated at</th>
+            <td class="px-4 py-3"><%= @category.updated_at.strftime('%A, %d %b %Y %I:%M %p') %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

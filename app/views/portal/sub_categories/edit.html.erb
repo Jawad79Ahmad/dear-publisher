@@ -1,0 +1,7 @@
+<div class="grid mt-4">
+  <%= render partial: 'layouts/partials/breadcrums', locals: { component_name: 'Categories', component_location: portal_categories_path, page_name: 'Edit' } %>
+
+  <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 mt-4">
+    <%= render partial: 'portal/categories/form', locals: { category: @category, method: :put, url: portal_category_path(@category) } %>
+  </div>
+</div>

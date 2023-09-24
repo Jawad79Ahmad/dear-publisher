@@ -3,12 +3,17 @@ class Portal::CategoriesController < Portal::BaseController
   before_action :set_category, only: %i[show edit update destroy]
 
   def index
-    @q = Category.ransack(params[:q])
-    @categories = @q.result(distinct: true)
+    @q = Category.includes(:created_by).ransack(params[:q])
+    @categories = @q.result(distinct: true).order(:id).page(params[:page]).per(params[:limit] || 20)
+    @category_list = @categories.as_json(include: [:created_by])
+    @total_records = @q.result.count
   end
 
   def new
     @category = Category.new
+    render turbo_stream: [
+      turbo_stream.replace("show_default_modal", partial: "new", locals: { category: @category })
+    ]
   end
 
   def create
@@ -20,7 +25,11 @@ class Portal::CategoriesController < Portal::BaseController
     end
   end
 
-  def edit; end
+  def edit
+    render turbo_stream: [
+      turbo_stream.replace("show_default_modal", partial: "edit", locals: { category: @category })
+    ]
+  end
 
   def show; end
 

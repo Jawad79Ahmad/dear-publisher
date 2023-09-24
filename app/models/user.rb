@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  attr_accessor :login
+  attr_accessor :login, :name
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable,
@@ -19,14 +19,14 @@ class User < ApplicationRecord
   before_create :set_rid
   after_create :assign_default_role
 
+  after_find do
+    self.name = [first_name, last_name].map(&:to_s).join(' ')
+  end
+
   ROLES = ['admin', 'writer', 'blogger', 'publisher'].freeze
 
   def assign_default_role
     self.add_role(:member) if self.roles.blank?
-  end
-
-  def name
-    [first_name, last_name].map(&:to_s).join(' ')
   end
 
   def set_username

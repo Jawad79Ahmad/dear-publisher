@@ -1,0 +1,11 @@
+<%= form_with(url: url, model: sub_category, method: method, data: {remote: false}) do |f| %>
+  <div class="block flex gap-4">
+    <%= f.label :name, class: 'text-gray-700 dark:text-gray-400 mt-2 font-semibold' %>
+    <%= f.text_field :name, class: 'block w-full rounded-lg border-gray-400  dark:border-gray-600 dark:bg-gray-700 focus:border-cyan-400 focus:outline-none focus:shadow-outline-cyan dark:text-gray-300 dark:focus:shadow-outline-gray form-input', placeholder: 'Name', required: true %>
+  </div>
+
+  <div class="flex justify-between mt-4">
+    <%= link_to 'Back', portal_categories_path, class: 'px-4 py-2 font-medium leading-5 text-white transition-colors duration-150 bg-gray-600 border border-transparent rounded-lg active:bg-gray-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray' %>
+    <%= f.submit "#{method.eql?(:post) ? 'Create' : 'Update' } Sub Category", class: "px-4 py-2 font-medium leading-5 text-white transition-colors duration-150 bg-cyan-600 border border-transparent rounded-lg active:bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:shadow-outline-cyan" %>
+  </div>
+<% end %>

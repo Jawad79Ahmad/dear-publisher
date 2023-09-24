@@ -1,0 +1,7 @@
+<div class="grid mt-4">
+  <%= render partial: 'layouts/partials/breadcrums', locals: { component_name: 'Sub Categories', component_location: portal_sub_categories_path, page_name: 'New' } %>
+
+  <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 mt-4">
+    <%= render partial: 'portal/sub_categories/form', locals: { sub_category: @sub_category, method: :post, url: portal_sub_categories_path(@sub_category) } %>
+  </div>
+</div>
